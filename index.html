@@ -29,111 +29,128 @@
           </nav>     
           <transition name='form' mode='out-in'>
                <keep-alive>
-                    <div class="container mx-auto flex justify-center items-center">
-                         <component :feedback='feedback' :is="currentComponent" @register-form='handleForm' @signin-form='handleForm'></component>
+                    <div class="container mx-auto flex justify-center items-center app_form">
+                         <component :feedback='feedback' :is="currentComponent" @register-form='handleForm' @signin-form='handleForm' @edit-form='handleForm'></component>
                     </div>
                </keep-alive>
           </transition>
      </div>
       
      <template id="registerTemplate">
-          <form @submit.prevent='onSubmit' ref='form' action="" class='w-1/3'>
-                  <h2 class="font-bold mb-6 text-center text-2xl">Регистрация</h2>
-                  <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
-                         <div class="mb-4" >
+          <form @submit.prevent='onSubmit' ref='form' action="" class="w-2/4">
+               <h2 class="font-bold mb-6 text-center text-2xl">Регистрация</h2>
+               <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
+                    <div class="flex flex-wrap mb-2">
+                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                               <label class="font-bold text-grey-darker block mb-2" for="firstname">Имя</label>
                               <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="text" v-model.trim='user.firstname' id='firstname' placeholder="Имя">
                          </div>
-                         <div class="mb-4">
-                              <label class="font-bold text-grey-darker block mb-2" for="lastname">Фамилия</label>
-                              <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="text" v-model.trim='user.lastname' id='lastname' placeholder="Фамилия">
-                         </div>
-                         <div class="mb-4">
+                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                               <label class="font-bold text-grey-darker block mb-2" for="email">E-mail</label>
                               <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="email" v-model.trim='user.email' id='email' placeholder="E-mail">
                          </div>
-                         <div class="mb-4">
-                              <label class="font-bold text-grey-darker block mb-2" for="password">Пароль</label>
+                    </div>
+                    <div class="border-t-2 border-gray-200 mb-10 mt-10"></div>
+                    <div class="flex flex-wrap mb-2 mt-4">
+                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                              <label class="font-bold text-grey-darker block mb-2" for="password">Новый пароль</label>
                               <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="password" v-model='user.password' placeholder="Пароль" id='password'>
                          </div>
-                         <div class="mb-4">
+                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                               <label class="font-bold text-grey-darker block mb-2" for="passwordcheck">Повторите пароль</label>
                               <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="password" v-model='user.passwordChck' placeholder="Повторите пароль" id='passwordcheck'>
                          </div>
-                         <input class="bg-teal-dark hover:bg-teal text-white font-bold py-2 px-4 rounded" type="submit" :disabled='!isFormValid' value='Регистрировать'>
-                  </div>
+                    </div>
+                    <div class="md:flex md:items-center px-3 mt-10">
+                         <input class="w-full shadow bg-green-300 hover:bg-green-400 text-white font-bold py-2 px-4 rounded" type="submit" :disabled='!isFormValid' value='Регистрировать'>
+                    </div>
+               </div>
           </form>
      </template>
       
-       <template id="signinTemplate">
-            <form ref='form' @submit.prevent='handleForm' action="" class='signin-form'>
-                  <h2>Войти</h2>
-                  <div class="form-group">
-                       <label for="email">E-mail</label>
-                       <input required v-model='user.email' type="email" id='email' placeholder="E-mail">
-                  </div>
-                  <div class="form-group">
-                       <label for="password">Пароль</label>
-                       <input required v-model='user.password' type="password" id='password' placeholder="Пароль">
-                  </div>
-                  <input :disabled='!isFormValid' type="submit" value="Войти">
-            </form>
-       </template>
+     <template id="signinTemplate">
+          <form ref='form' @submit.prevent='handleForm' action="" class='w-2/5'>
+               <h2 class="font-bold mb-6 text-center text-2xl">Войти в систему</h2>
+               <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
+                    <div class="mb-4 px-3">
+                         <label class="font-bold text-grey-darker block mb-2" for="email">E-mail</label>
+                         <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required v-model='user.email' type="email" id='email' placeholder="E-mail">
+                    </div>
+                    <div class="mb-10 px-3">
+                         <label class="font-bold text-grey-darker block mb-2" for="password">Пароль</label>
+                         <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required v-model='user.password' type="password" id='password' placeholder="Пароль">
+                    </div>
+                    <a href="" class="text-gray-600 text-xs italic mt-4 px-3">Забыли пароль?</a>
+                    <div class="md:flex md:items-center px-3 mt-2">
+                         <input class="w-full shadow bg-green-300 hover:bg-green-400 text-white font-bold py-2 px-4 rounded" :disabled='!isFormValid' type="submit" value="Войти">
+                    </div>
+               </div>
+          </form>
+     </template>
       
-       <template id="editTemplate">
-    <div class="eight wide column">
-      <div class="ui segment">
-        <h2 class="ui dividing header">Edit Profile</h2>
-
-        <form class="ui form">
-          <div class="field">
-            <label>Full Name</label>
-            <input type="text" name="name" v-model="name">
-          </div>
-
-          <div class="field">
-            <label>Username</label>
-            <input type="text" name="username" v-model="username">
-          </div>
-
-          <div class="field">
-            <label>Email</label>
-            <input type="email" name="email" v-model="email" placeholder="Email">
-          </div>
-
-          <div class="field">
-            <label>Bio</label>
-            <textarea v-model="bio" rows="5" placeholder="A breif bio of you"></textarea>
-          </div>
-
-          <div class="field">
-            <label>Location</label>
-            <input type="text" v-model="location" placeholder="Your location">
-          </div>
-
-          <div class="field">
-            <label>Website URL</label>
-            <input type="url" v-model="websiteUrl" placeholder="Website URL">
-          </div>
-
-          <button class="ui button primary">Update profile</button>
-        </form>
-      </div>
-    </div>
+     <template id="editTemplate">
+          <form @submit.prevent='onSubmit' ref='form' action="" class='w-2/4'>
+               <h2 class="font-bold mb-6 text-center text-2xl">Редактировать профиль</h2>
+               <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
+                    <div class="flex flex-wrap mb-2">
+                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                              <label class="font-bold text-grey-darker block mb-2" for="firstname">Имя</label>
+                              <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="text" v-model.trim='user.firstname' id='firstname' placeholder="Имя">
+                         </div>
+                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                              <label class="font-bold text-grey-darker block mb-2" for="lastname">Фамилия</label>
+                              <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="text" v-model.trim='user.lastname' id='lastname' placeholder="Фамилия">
+                         </div>
+                    </div>
+                    <div class="mb-4 px-3">
+                         <label class="font-bold text-grey-darker block mb-2" for="email">E-mail</label>
+                         <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="email" v-model.trim='user.email' id='email' placeholder="E-mail">
+                    </div>
+                    <div class="flex flex-wrap mb-2">
+                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                              <label class="font-bold text-grey-darker block mb-2" for="password">Новый пароль</label>
+                              <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="password" v-model='user.password' placeholder="Пароль" id='password'>
+                         </div>
+                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                              <label class="font-bold text-grey-darker block mb-2" for="passwordcheck">Повторите пароль</label>
+                              <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" required type="password" v-model='user.passwordChck' placeholder="Повторите пароль" id='passwordcheck'>
+                         </div>
+                    </div>
+                    <div class="mb-4 px-3">
+                         <label class="font-bold text-grey-darker block mb-2" for="prof">Ваша профессия</label>
+                         <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" v-model='user.prof'  id='prof' placeholder="Чем занимаешься?">
+                    </div>
+                    <div class="mb-4 px-3">
+                         <label class="font-bold text-grey-darker block mb-2">Биография</label>
+                         <textarea class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Опишите свою биографию"></textarea>
+                    </div>
+                    <div class="mb-4 px-3">
+                         <label class="font-bold text-grey-darker block mb-2" for="city">Где живем?</label>
+                         <input class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" v-model='user.city' id='city' placeholder="Город?">
+                    </div>
+                    <div class="md:flex md:items-center px-3 mt-10">
+                         <input class="w-full shadow bg-green-300 hover:bg-green-400 text-white font-bold py-2 px-4 rounded" type="submit" :disabled='!isFormValid' value='Обновить профиль'>
+                    </div>
+               </div>
+          </form>
      </template>
 
        <template id="feedbackTemplate">
-            <div class="feedback">
-                  <header>
-                       <h2>{{ title }}</h2>
-                  </header>
-                  <div v-if='feedback.type === "register"'>
-                      <p>Добро пожаловать <strong>{{ feedback.data | name }}</strong>.</p>
-                      <p> Чтобы подтвердить на ваше письмо - {{ feedback.data | email }} отправлено письмо для завершения регистрация.</p>
-                  </div>
-                  <div v-else>
-                       <p>Вы будете перенаправлены через несколько минут ...</p>
-                  </div>
+            <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
+               <h2 class="font-bold mb-6 text-center text-2xl">{{ title }}</h2>
+               <div v-if='feedback.type === "register"'>
+                    <p>Добро пожаловать <strong>{{ feedback.data | name }}</strong>.</p>
+                    <p>Вы прошли регистрацию, однако это всего лишь тест, поэтому ничего не будет! ^_^</p>
+               </div>
+               <div v-if='feedback.type === "edit"'>
+                    <p>Спасибо за изменения, теперь вы <strong>{{ feedback.data | name }}</strong> <strong>{{ feedback.data | lastname }}</strong>.</p>
+                    <p>И вы живете в <strong>{{ feedback.data | city }}</strong>, круто!</p>
+                    <p>И вы работаете <strong>{{ feedback.data | prof }}</strong>!</p>
+               </div>
+               <div v-if='feedback.type === "signin"'>
+                    <p>Вы вошли в систему!!</p>
+                    <p>Но тут ничего нет ((((</p>
+               </div>
             </div>
        </template>
 
